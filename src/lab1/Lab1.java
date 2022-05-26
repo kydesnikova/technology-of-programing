@@ -43,7 +43,11 @@ public class Lab1 {
 
         task1(g);
         task2(g, q);
-        perevod(q.get(2));
+        
+        for (Studentyi st : q) {
+            perevod(st);
+        }
+        
         task2(g, q);
 
         getMarks(q.get(1));
@@ -67,7 +71,7 @@ public class Lab1 {
                 test = gr.getNazvanie().split("-");
                 split = test[0];
                 if (counter > 0 && i == gr.getKodPlana()) {
-                    System.out.println("группы специальности " + split + ":");
+                    System.out.println("ГЈГ°ГіГЇГЇГ» Г±ГЇГҐГ¶ГЁГ Г«ГјГ­Г®Г±ГІГЁ " + split + ":");
                     counter = 0;
                 }
                 if (i == gr.getKodPlana()) {
@@ -85,7 +89,7 @@ public class Lab1 {
                     n++;
                 }
             }
-            System.out.println("В группе " + gr.getNazvanie() + " действующих студентов: " + n);
+            System.out.println("Г‚ ГЈГ°ГіГЇГЇГҐ " + gr.getNazvanie() + " Г¤ГҐГ©Г±ГІГўГіГѕГ№ГЁГµ Г±ГІГіГ¤ГҐГ­ГІГ®Гў: " + n);
             n = 0;
         }
     }
@@ -101,13 +105,15 @@ public class Lab1 {
     List<Gruppyi> g = s.createQuery("from Gruppyi s").list();
     List<Studentyi> q = s.createQuery("from Studentyi s").list();
     List<Marks> m = s.createQuery(("from Marks s")).list();
-    System.out.println("У студента " + std.getFamiliya() + " " + std.getImya());
+    System.out.println("Г“ Г±ГІГіГ¤ГҐГ­ГІГ  " + std.getFamiliya() + " " + std.getImya());
     for(Marks mr : m){
         if(mr.getStudent().getNomerZachetki() == std.getNomerZachetki()){
-            System.out.println("Оценка " + mr.getMark() + " по " + mr.getSubject());
+            System.out.println("ГЋГ¶ГҐГ­ГЄГ  " + mr.getMark() + " ГЇГ® " + mr.getSubject());
         }
     }
 }
+    
+    //	РџРµСЂРµРІРµСЃС‚Рё СЃС‚СѓРґРµРЅС‚РѕРІ СЃРѕ СЃС‚Р°С‚СѓСЃРѕРј В«Р°РєР°РґРµРјРёС‡РµСЃРєРёР№ РѕС‚РїСѓСЃРєВ» РІ РіСЂСѓРїРїСѓ С‚РѕР№ Р¶Рµ СЃРїРµС†РёР°Р»СЊРЅРѕСЃС‚Рё, РЅРѕ РѕР±СѓС‡Р°СЋС‰РµР№СЃСЏ РЅР° РјР»Р°РґС€РµРј РєСѓСЂСЃРµ.
     public static void perevod(Studentyi std) {
         SessionFactory sf = NewHibernateUtil.getSessionFactory();
         Session s = sf.openSession();
@@ -126,30 +132,14 @@ public class Lab1 {
                     std.setGruppyi(gr);
                     std.setStatus("enrolled");
                 }
-                    //System.out.println("    " + gr.getNazvanie() + "    " + gr.getDataFormir().getTime());
-                    //System.out.println("test");
             }
 
             System.out.println("check " + x);
             transaction.commit();
         } else {
-            System.out.println("Студент не в академе");
+            System.out.println("Г‘ГІГіГ¤ГҐГ­ГІ Г­ГҐ Гў Г ГЄГ Г¤ГҐГ¬ГҐ");
         }
     }
-   /* public static void acadPerformance(Studentyi stud){
-        SessionFactory sf = NewHibernateUtil.getSessionFactory();
-        Session s = sf.openSession();
-        Transaction transaction = s.beginTransaction();
-        List<Gruppyi> g = s.createQuery("from Gruppyi s").list();
-        List<Studentyi> q = s.createQuery("from Studentyi s").list();
-        List<Marks> m = s.createQuery("from marks s").list();
-        System.out.println("У студента " + stud.getFamiliya() + " " + stud.getImya() + " оценки");
-        for(Marks mr : m){
-            if (mr.getStudent() == stud){
-                System.out.println(mr.getSubject() + " " + mr.getMark());
-            }
-            return;
-        }
-    }*/
+  
 
 }
